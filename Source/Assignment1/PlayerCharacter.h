@@ -8,6 +8,8 @@
 
 class USpringArmComponent;
 class UCameraComponent;
+class USceneComponent;
+class AProjectile;
 
 UCLASS()
 class ASSIGNMENT1_API APlayerCharacter : public ACharacter
@@ -36,6 +38,12 @@ private:
 	UPROPERTY(EditAnywhere)
 	UCameraComponent* Camera;
 
+	UPROPERTY(EditAnywhere)
+	USceneComponent* ProjectileSpawnLocation;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AProjectile> ProjectileClass;
+
 	/// <summary>
 	/// Handeller function for moving forward
 	/// </summary>
@@ -59,5 +67,9 @@ private:
 	/// </summary>
 	/// <param name="AxisAmount">The amount you want to turn by</param>
 	void Turn(float AxisAmount);
+
+	void OnBeginFire();
+
+	void OnEndFire();
 
 };

@@ -4,6 +4,7 @@
 #include "PlayerCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Projectile.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -24,6 +25,11 @@ APlayerCharacter::APlayerCharacter()
 	// Create a camera and attach to our spring arm
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
+
+	//Create projectile spawn location
+	ProjectileSpawnLocation = CreateDefaultSubobject<USceneComponent>(TEXT("ProjectileSpawnLocation"));
+	ProjectileSpawnLocation->SetupAttachment(RootComponent);
+	ProjectileSpawnLocation->SetRelativeLocation(FVector(70.0f, 20.0f, 60.0f));
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
@@ -53,6 +59,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &APlayerCharacter::Turn);
 
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump );
+	PlayerInputComponent->BindAction(TEXT("Shoot"), IE_Pressed, this, &APlayerCharacter::OnBeginFire);
+	PlayerInputComponent->BindAction(TEXT("Shoot"), IE_Released, this, &APlayerCharacter::OnEndFire);
 }
 
 void APlayerCharacter::MoveForwards(float AxisAmount)
@@ -73,5 +81,24 @@ void APlayerCharacter::LookUp(float AxisAmount)
 void APlayerCharacter::Turn(float AxisAmount)
 {
 	AddControllerYawInput(AxisAmount);
+}
+
+void APlayerCharacter::OnBeginFire()
+{
+	if (ProjectileClass) 
+	{ 
+		FVector SpawnLocation = ProjectileSpawnLocation->GetComponentLocation();
+		FRotator SpawnRotation = Camera->GetComponentRotation();
+		AProjectile* TempProjectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("No Projectile class set in the blueprint"));
+	}
+}
+
+void APlayerCharacter::OnEndFire()
+{
+	UE_LOG(LogTemp, Warning, TEXT("No Shoot"));
 }
 
