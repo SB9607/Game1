@@ -72,4 +72,8 @@ private:
 
 	void OnEndFire();
 
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+		AController* EventInstigator, AActor* DamageCauser) override;
+
+
 };

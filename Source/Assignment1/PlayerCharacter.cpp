@@ -90,6 +90,8 @@ void APlayerCharacter::OnBeginFire()
 		FVector SpawnLocation = ProjectileSpawnLocation->GetComponentLocation();
 		FRotator SpawnRotation = Camera->GetComponentRotation();
 		AProjectile* TempProjectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+
+		TempProjectile->SetOwner(this);
 	}
 	else
 	{
@@ -99,6 +101,11 @@ void APlayerCharacter::OnBeginFire()
 
 void APlayerCharacter::OnEndFire()
 {
-	UE_LOG(LogTemp, Warning, TEXT("No Shoot"));
+	//UE_LOG(LogTemp, Warning, TEXT("No Shoot"));
+}
+
+float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	return 0.0f;
 }
 

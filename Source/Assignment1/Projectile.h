@@ -29,10 +29,15 @@ public:
 	float MovementSpeed = 3000.0f;
 
 	UPROPERTY(EditAnywhere)
+	float Damage = 10.0f;
+
+	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* Mesh;
 
 	UPROPERTY(EditAnywhere)
 	UProjectileMovementComponent* ProjectileMovement;
 
-
+private:
+	UFUNCTION()
+	void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 };

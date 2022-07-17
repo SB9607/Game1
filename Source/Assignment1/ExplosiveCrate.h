@@ -24,7 +24,15 @@ public:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* Mesh;
 
+	UPROPERTY(EditAnywhere)
+	float Health = 20.0f;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+private:
+
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+		AController* EventInstigator, AActor* DamageCauser) override;
 
 };

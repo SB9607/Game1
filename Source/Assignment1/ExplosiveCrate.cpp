@@ -10,8 +10,10 @@ AExplosiveCrate::AExplosiveCrate()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	Mesh->SetupAttachment(RootComponent);
+	SetRootComponent(Mesh);
 	Mesh->SetSimulatePhysics(true);
+	Mesh->SetNotifyRigidBodyCollision(true);
+	
 }
 
 // Called when the game starts or when spawned
@@ -26,5 +28,19 @@ void AExplosiveCrate::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+float AExplosiveCrate::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Box taken damage"));
+	Health -= DamageAmount;
+
+	if (Health == 0.0f)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("BOOM! BOX DESTROYED"));
+		Destroy();
+	}
+
+	return DamageAmount;
 }
 
