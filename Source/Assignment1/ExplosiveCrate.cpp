@@ -21,6 +21,7 @@ void AExplosiveCrate::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	GameModeRef = Cast<AAssignment1GameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 }
 
 // Called every frame
@@ -39,6 +40,10 @@ float AExplosiveCrate::TakeDamage(float DamageAmount, FDamageEvent const& Damage
 	{
 		UE_LOG(LogTemp, Warning, TEXT("BOOM! BOX DESTROYED"));
 		Destroy();
+		if (GameModeRef != nullptr)
+		{
+			GameModeRef->PointScored(1.0f);
+		}
 	}
 
 	return DamageAmount;

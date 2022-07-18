@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Kismet/GameplayStatics.h"
+#include "Assignment1GameModeBase.h"
 #include "ExplosiveCrate.generated.h"
 
 UCLASS()
@@ -31,6 +33,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+
+	UPROPERTY()
+		AAssignment1GameModeBase* GameModeRef;
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
 		AController* EventInstigator, AActor* DamageCauser) override;

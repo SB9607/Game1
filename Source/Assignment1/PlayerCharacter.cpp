@@ -31,7 +31,7 @@ APlayerCharacter::APlayerCharacter()
 	ProjectileSpawnLocation->SetupAttachment(RootComponent);
 	ProjectileSpawnLocation->SetRelativeLocation(FVector(70.0f, 20.0f, 60.0f));
 
-	AutoPossessPlayer = EAutoReceiveInput::Player0;
+	
 }
 
 // Called when the game starts or when spawned
@@ -39,6 +39,7 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
 
 // Called every frame
@@ -101,11 +102,11 @@ void APlayerCharacter::OnBeginFire()
 
 void APlayerCharacter::OnEndFire()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("No Shoot"));
+	
 }
 
 float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
-{
+{  
 	return 0.0f;
 }
 
