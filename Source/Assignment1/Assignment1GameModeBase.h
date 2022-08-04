@@ -27,6 +27,9 @@ public:
 	void PointScored(float AmountToIncrease);
 
 	UFUNCTION()
+	void StartGame();
+
+	UFUNCTION()
 	void WinGame();
 
 	UFUNCTION()
@@ -40,5 +43,5 @@ private:
 	float GameDuration = 60.0f;
 
 	UPROPERTY()
-	float WinCondition = 1.0f;
+	float WinCondition = 10.0f;
 };

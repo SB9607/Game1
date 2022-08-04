@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Projectile.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -93,6 +94,8 @@ void APlayerCharacter::OnBeginFire()
 		AProjectile* TempProjectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
 
 		TempProjectile->SetOwner(this);
+
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), GunshotSound,	GetActorLocation(), 1.0f, 1.0f, 0.0f);
 	}
 	else
 	{

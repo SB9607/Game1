@@ -44,6 +44,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AProjectile> ProjectileClass;
 
+	UPROPERTY(EditAnywhere)
+	USoundBase* GunshotSound;
+
 	UPROPERTY()
 	float Health = 100.0f;
 
