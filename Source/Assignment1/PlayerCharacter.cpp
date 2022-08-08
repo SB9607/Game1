@@ -41,6 +41,8 @@ void APlayerCharacter::BeginPlay()
 	Super::BeginPlay();
 	
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
+
+	GameModeRef = Cast<AAssignment1GameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 }
 
 // Called every frame
@@ -108,8 +110,23 @@ void APlayerCharacter::OnEndFire()
 	
 }
 
-float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+float APlayerCharacter::TakeDamage(float DamageAmount)
 {  
-	return 0.0f;
+	Health -= DamageAmount;
+
+	UE_LOG(LogTemp, Error, TEXT("Take Damage called"));
+
+	if (Health == 0.0f)
+	{
+		if (GameModeRef != nullptr)
+		{
+			GameModeRef->LoseGame();
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("is null!!!!!"));
+		}
+	}
+	return DamageAmount;
 }
 

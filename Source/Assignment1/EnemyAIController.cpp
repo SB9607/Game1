@@ -28,7 +28,6 @@ void AEnemyAIController::Tick(float DeltaTime)
 	FVector AIToPlayerVector = PlayerPositionVector - AIPositionVector;
 	AIToPlayerVector.Normalize(); //this vector must be explicitly normalised
 	float DirectionDotProduct = FVector::DotProduct(AIToPlayerVector, AIForwardVector);
-	UE_LOG(LogTemp, Warning, TEXT("dot product is: %f"), DirectionDotProduct);
 
 	if (LineOfSightTo(PlayerPawn) && DirectionDotProduct >= 0)
 	{

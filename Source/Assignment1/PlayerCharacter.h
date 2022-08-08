@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Assignment1GameModeBase.h"
 #include "PlayerCharacter.generated.h"
 
 class USpringArmComponent;
@@ -31,6 +32,11 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float Health = 100.0f;
+
+	float TakeDamage(float DamageAmount);
+
 private:
 	UPROPERTY(EditAnywhere)
 	USpringArmComponent* SpringArm;
@@ -48,7 +54,7 @@ private:
 	USoundBase* GunshotSound;
 
 	UPROPERTY()
-	float Health = 100.0f;
+	AAssignment1GameModeBase* GameModeRef;
 
 	/// <summary>
 	/// Handeller function for moving forward
@@ -77,9 +83,5 @@ private:
 	void OnBeginFire();
 
 	void OnEndFire();
-
-	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
-		AController* EventInstigator, AActor* DamageCauser) override;
-
 
 };

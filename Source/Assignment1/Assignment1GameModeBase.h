@@ -36,11 +36,11 @@ public:
 	void LoseGame();
 
 	FTimerHandle EndGameTimer;
-	
-private:
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float GameDuration = 60.0f;
+
+private:
 
 	UPROPERTY()
 	float WinCondition = 10.0f;
