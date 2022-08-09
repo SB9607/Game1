@@ -9,10 +9,11 @@ void APlayablePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	HUD = CreateWidget(this, HUDClass);
+	HUD = CreateWidget(this, HUDClass); //Creating the widget
 
+	//Making sure it is not null
 	if (HUD != nullptr)
 	{
-		HUD->AddToViewport();
+		HUD->AddToViewport(); //Sdding the widget to the viewport
 	}
 }

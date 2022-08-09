@@ -21,8 +21,8 @@ protected:
 public:
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<UUserWidget> HUDClass;
+	TSubclassOf<UUserWidget> HUDClass; //Widget class that will be displayed to the screen set in the editor
 
 	UPROPERTY()
-	UUserWidget* HUD;
+	UUserWidget* HUD; //The widget that will be displayed to the screen
 };

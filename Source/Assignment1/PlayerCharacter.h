@@ -33,28 +33,33 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float Health = 100.0f;
+	float Health = 100.0f; //Health of the player 
 
+	/// <summary>
+	/// Function to take damage when hurt.
+	/// </summary>
+	/// <param name="DamageAmount">Amount of damage to take off the players health</param>
+	/// <returns>Health</returns>
 	float TakeDamage(float DamageAmount);
 
 private:
 	UPROPERTY(EditAnywhere)
-	USpringArmComponent* SpringArm;
+	USpringArmComponent* SpringArm; //Reference to the spring arm the camera is attached to
 
 	UPROPERTY(EditAnywhere)
-	UCameraComponent* Camera;
+	UCameraComponent* Camera; //Reference to the camera 
 
 	UPROPERTY(EditAnywhere)
-	USceneComponent* ProjectileSpawnLocation;
+	USceneComponent* ProjectileSpawnLocation; //Location to spawn the projectile when shot
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<AProjectile> ProjectileClass;
+	TSubclassOf<AProjectile> ProjectileClass; //Projectile that is shot when the player shoots the gun
 
 	UPROPERTY(EditAnywhere)
-	USoundBase* GunshotSound;
+	USoundBase* GunshotSound; //Reference to the sound of a gunshot
 
 	UPROPERTY()
-	AAssignment1GameModeBase* GameModeRef;
+	AAssignment1GameModeBase* GameModeRef; //Reference to the gamemode 
 
 	/// <summary>
 	/// Handeller function for moving forward
@@ -80,8 +85,14 @@ private:
 	/// <param name="AxisAmount">The amount you want to turn by</param>
 	void Turn(float AxisAmount);
 
+	/// <summary>
+	/// Function when the player shoots
+	/// </summary>
 	void OnBeginFire();
 
+	/// <summary>
+	/// Function when the player stops shooting
+	/// </summary>
 	void OnEndFire();
 
 };

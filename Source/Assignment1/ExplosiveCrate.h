@@ -24,10 +24,10 @@ protected:
 public:	
 
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* Mesh;
+	UStaticMeshComponent* Mesh; //Mesh that will be set in the editor
 
 	UPROPERTY(EditAnywhere)
-	float Health = 20.0f;
+	float Health = 20.0f; //Base health of the crate
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -35,9 +35,10 @@ public:
 private:
 
 	UPROPERTY()
-		AAssignment1GameModeBase* GameModeRef;
+	AAssignment1GameModeBase* GameModeRef; //Reference to the gamemode
 
+	//Function that will be called when damage is applied to the crate
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
-		AController* EventInstigator, AActor* DamageCauser) override;
+	AController* EventInstigator, AActor* DamageCauser) override;
 
 };

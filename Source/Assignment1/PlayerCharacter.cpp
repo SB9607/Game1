@@ -20,7 +20,6 @@ APlayerCharacter::APlayerCharacter()
 	SpringArm->SetRelativeRotation(FRotator(-10.f, 0.f, 0.f));
 	SpringArm->SocketOffset = FVector(0.0f, 79.0f, 0.0f);
 	SpringArm->TargetArmLength = 250.0f;
-
 	SpringArm->bUsePawnControlRotation = true;
 
 	// Create a camera and attach to our spring arm
@@ -31,8 +30,6 @@ APlayerCharacter::APlayerCharacter()
 	ProjectileSpawnLocation = CreateDefaultSubobject<USceneComponent>(TEXT("ProjectileSpawnLocation"));
 	ProjectileSpawnLocation->SetupAttachment(RootComponent);
 	ProjectileSpawnLocation->SetRelativeLocation(FVector(70.0f, 20.0f, 60.0f));
-
-	
 }
 
 // Called when the game starts or when spawned
@@ -69,38 +66,41 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void APlayerCharacter::MoveForwards(float AxisAmount)
 {
-	AddMovementInput(GetActorForwardVector() * AxisAmount);
+	AddMovementInput(GetActorForwardVector() * AxisAmount); //Move the player forward
 }
 
 void APlayerCharacter::Strafe(float AxisAmount)
 {
-	AddMovementInput(GetActorRightVector() * AxisAmount);
+	AddMovementInput(GetActorRightVector() * AxisAmount); //Moving the player left or right
 }
 
 void APlayerCharacter::LookUp(float AxisAmount)
 {
-	AddControllerPitchInput(AxisAmount);
+	AddControllerPitchInput(AxisAmount); //Allowing the player to look upwards
 }
 
 void APlayerCharacter::Turn(float AxisAmount)
 {
-	AddControllerYawInput(AxisAmount);
+	AddControllerYawInput(AxisAmount); //Allowing the player to turn left and right
 }
 
 void APlayerCharacter::OnBeginFire()
 {
+	//Check to see if the proijectile class is not null
 	if (ProjectileClass) 
 	{ 
 		FVector SpawnLocation = ProjectileSpawnLocation->GetComponentLocation();
 		FRotator SpawnRotation = Camera->GetComponentRotation();
-		AProjectile* TempProjectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+		AProjectile* TempProjectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnLocation, SpawnRotation); //Spawn a projectile at the location set
 
-		TempProjectile->SetOwner(this);
+		TempProjectile->SetOwner(this); //Setting the owner of the projectile
 
+		//Playing the gunshot sound
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), GunshotSound,	GetActorLocation(), 1.0f, 1.0f, 0.0f);
 	}
 	else
 	{
+
 		UE_LOG(LogTemp, Error, TEXT("No Projectile class set in the blueprint"));
 	}
 }
@@ -112,19 +112,15 @@ void APlayerCharacter::OnEndFire()
 
 float APlayerCharacter::TakeDamage(float DamageAmount)
 {  
-	Health -= DamageAmount;
+	Health -= DamageAmount; //Decrease the health
 
-	UE_LOG(LogTemp, Error, TEXT("Take Damage called"));
-
+	//Cehcking to see if the player died
 	if (Health == 0.0f)
 	{
 		if (GameModeRef != nullptr)
 		{
+			//If the player is dead lose the game
 			GameModeRef->LoseGame();
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("is null!!!!!"));
 		}
 	}
 	return DamageAmount;
